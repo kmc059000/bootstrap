@@ -134,4 +134,32 @@ $(function () {
           })
           .modal("show")
       })
+      
+      test("should fire load event", function () {
+        stop()
+        $.support.transition = false
+        $("<div id='modal-test' data-remote='remote.html'></div>")
+          //remote.html will throw exception in chrome due to same origin policy on the local file system
+          .html("<div class='modal-body'></div>")
+          .bind("load.bs.modal", function () {
+            ok(true, "load was called")
+            $(this).remove()
+            start()
+          })
+          .modal("show")
+      })
+
+      test("should fire loaded event", function () {
+        stop()
+        $.support.transition = false
+        $("<div id='modal-test' data-remote='remote.html'></div>")
+          //remote.html will throw exception in chrome due to same origin policy on the local file system
+          .html("<div class='modal-body'></div>")
+          .bind("loaded.bs.modal", function () {
+            ok(true, "loaded was called")
+            $(this).remove()
+            start()
+          })
+          .modal("show")
+      })
 })
