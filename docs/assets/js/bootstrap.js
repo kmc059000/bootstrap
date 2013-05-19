@@ -778,11 +778,16 @@
     this.$backdrop =
     this.isShown   = null
 
-    if (this.options.remote) this.$element.find('.modal-body').load(this.options.remote, $.proxy(function(){ 
-      var e = $.Event('remoteLoaded.bs.modal')
-      
-      this.$element.trigger(e)
-    }, this))
+    if (this.options.remote) {
+      var e = $.Event('load.bs.modal');
+      this.$element.trigger(e);
+
+      this.$element.find('.modal-body').load(this.options.remote, $.proxy(function(){ 
+        var e = $.Event('loaded.bs.modal')
+        
+        this.$element.trigger(e)
+      }, this))
+    }
   }
 
   Modal.DEFAULTS = {
